@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "css-loader": "^0.28.4",
+    "moment": "^2.18.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "style-loader": "^0.18.2",
+    "webpack": "^2.6.1"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --progress"
+  }
+}
