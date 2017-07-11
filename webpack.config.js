@@ -1,11 +1,71 @@
-const webpack = require('webpack');
 const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+const extractSass = new ExtractTextPlugin({
+    filename: "[name].[contenthash].css",
+    disable: process.env.NODE_ENV === "development"
+});
 
 module.exports = {
-  entry: './app/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    context: path.resolve(__dirname, './src'),
+    entry: {
+        app: './entries/app.js'
+    },
+    output: {
+        publicPath: '/',
+        path: __dirname + "/dist",
+        filename: "[name].bundle.js",
+    },
+    devServer: {
+        contentBase: __dirname + "/src", // New
+        compress: true,
+        port: 9000
+    },
+    module: {
+        rules: [{
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }, {
+                test: /\.scss$/,
+                use: extractSass.extract({
+                    use: [{
+                        loader: "css-loader" // translates CSS into CommonJS 
+                    }, {
+                        loader: "sass-loader" // compiles Sass to CSS 
+                    }],
+                    // use style-loader in development 
+                    fallback: "style-loader"
+                })
+            },
+
+            {
+                test: /\.(js|jsx)$/,
+                // include: path.appSrc,
+                // loader: require.resolve('babel-loader'),
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        plugins: [
+                            ['import', {
+                                libraryName: 'antd',
+                                style: 'css'
+
+                            }],
+                        ],
+                        // This is a feature of `babel-loader` for webpack (not Babel itself).
+                        // It enables caching results in ./node_modules/.cache/babel-loader/
+                        // directory for faster rebuilds.
+                        cacheDirectory: true
+                    }
+                }],
+            },
+        ]
+    },
+    plugins: [
+        extractSass
+    ]
 };
