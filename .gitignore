@@ -29,3 +29,7 @@ phpunit.phar
 #node
 node_modules
 yarn.lock
+yarn-error.log
+
+#webpack build
+/dist

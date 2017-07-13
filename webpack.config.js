@@ -1,11 +1,17 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
     filename: "[name].[contenthash].css",
     disable: process.env.NODE_ENV === "development"
 });
+
+const extractHtml = new HtmlWebpackPlugin({
+    title: 'My App',
+    template: './entries/index.html'
+})
 
 module.exports = {
     context: path.resolve(__dirname, './src'),
@@ -20,7 +26,7 @@ module.exports = {
     devServer: {
         contentBase: __dirname + "/src", // New
         compress: true,
-        port: 9000
+        port: 6666
     },
     module: {
         rules: [{
@@ -66,6 +72,7 @@ module.exports = {
         ]
     },
     plugins: [
-        extractSass
+        extractSass,
+        extractHtml
     ]
 };
