@@ -8,7 +8,6 @@ import Login from '../views/login';
 const AppRouter = () => (
     <Router>
         <Route path="/" component={Login} />
-        <Route path="/login" component={Login} />
     </Router>
 )
 

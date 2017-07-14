@@ -60,14 +60,4 @@
 4. 能记录某个时间点常输入的字段方便快速选中分类
 5. 能设置提醒记账时间，例如午饭之后提示然后进网站能快速录入或者直接根据习惯确定等
 
-```flow
-st=>start: Start
-e=>end
-op=>operation: My Operation
-cond=>condition: Yes or No?
-
-st->op->cond
-cond(yes)->e
-cond(no)->op
-```
 

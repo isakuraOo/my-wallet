@@ -24,9 +24,20 @@ module.exports = {
         filename: "[name].bundle.js",
     },
     devServer: {
-        contentBase: __dirname + "/src", // New
+        allowedHosts:[
+            'zhou.wallent.mg'
+        ],
+        // publicPath: '/', // New
+        contentBase: path.join(__dirname, "./src"),
         compress: true,
-        port: 6666
+        port: 6666,
+        // hot: true,
+        noInfo: true,
+        overlay: {
+            warnings: true,
+            errors: true
+        },
+        // progress: true,
     },
     module: {
         rules: [{
