@@ -24,14 +24,11 @@ module.exports = {
         filename: "[name].bundle.js",
     },
     devServer: {
-        allowedHosts:[
-            'zhou.wallent.mg'
-        ],
         // publicPath: '/', // New
         contentBase: path.join(__dirname, "./src"),
         compress: true,
-        port: 6666,
-        // hot: true,
+        port: 3001,
+        hot: true,
         noInfo: true,
         overlay: {
             warnings: true,
@@ -87,3 +84,5 @@ module.exports = {
         extractHtml
     ]
 };
+
+
