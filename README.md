@@ -10,9 +10,10 @@
 2. React-Router v4.1.1
 3. ES6
 4. SASS
-5. Antd v2.12.0
-6. Webpack
-7. Yarn
+5. PostCss
+6. Antd v2.12.0
+7. Webpack
+8. Yarn
 
 ###### 后端(计划&学习中)
 

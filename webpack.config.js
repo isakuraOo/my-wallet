@@ -48,9 +48,13 @@ module.exports = {
                 use: extractSass.extract({
                     use: [{
                         loader: "css-loader" // translates CSS into CommonJS 
-                    }, {
+                    },{
+                        loader: 'postcss-loader'
+                    },
+                    {
                         loader: "sass-loader" // compiles Sass to CSS 
-                    }],
+                    },
+                    ],
                     // use style-loader in development 
                     fallback: "style-loader"
                 })
