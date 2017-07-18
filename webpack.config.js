@@ -30,10 +30,10 @@ module.exports = {
         port: 3001,
         hot: true,
         noInfo: true,
-        overlay: {
-            warnings: true,
-            errors: true
-        },
+        // overlay: {
+        //     warnings: true,
+        //     errors: true
+        // },
         // progress: true,
     },
     module: {

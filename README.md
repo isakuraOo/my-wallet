@@ -10,7 +10,7 @@
 2. React-Router v4.1.1
 3. ES6
 4. SASS
-5. PostCss
+5. PostCSS
 6. Antd v2.12.0
 7. Webpack
 8. Yarn
