@@ -8,9 +8,14 @@ const extractSass = new ExtractTextPlugin({
     disable: process.env.NODE_ENV === "development"
 });
 
+const extractCss = new ExtractTextPlugin({
+    filename: "[name].[contenthash].css",
+    // disable: process.env.NODE_ENV === "development"
+})
+
 const extractHtml = new HtmlWebpackPlugin({
     title: 'My App',
-    template: './entries/index.html'
+    template: './entries/index.ejs'
 })
 
 module.exports = {
@@ -39,54 +44,67 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader'
-                ]
+                use: extractCss.extract({
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            sourceMap: true,
+                            // localIdentName: '[local]___[hash:base64:5]',
+                        }
+                    }],
+                    fallback: 'style-loader',
+                }),
             }, {
                 test: /\.scss$/,
+                exclude: /node_modules/,
                 use: extractSass.extract({
                     use: [{
-                        loader: "css-loader" // translates CSS into CommonJS 
-                    },{
-                        loader: 'postcss-loader'
-                    },
-                    {
-                        loader: "sass-loader" // compiles Sass to CSS 
-                    },
+                            loader: "css-loader", // translates CSS into CommonJS 
+                            options: {
+                                importLoaders: 2,
+                                sourceMap: true,
+                                modules: true,
+                                localIdentName: '[local]___[hash:base64:5]',
+                                camelCase: true
+                                // localIdentName: '[local]___[hash:base64:5]',
+                            }
+                        },
+                        "sass-loader", // compiles Sass to CSS 
                     ],
                     // use style-loader in development 
                     fallback: "style-loader"
-                })
+                }),
             },
-
             {
                 test: /\.(js|jsx)$/,
-                // include: path.appSrc,
-                // loader: require.resolve('babel-loader'),
+                exclude: /node_modules/,
                 use: [{
                     loader: 'babel-loader',
                     options: {
                         plugins: [
                             ['import', {
                                 libraryName: 'antd',
-                                style: 'css'
-
+                                style: 'css',
                             }],
                         ],
                         // This is a feature of `babel-loader` for webpack (not Babel itself).
                         // It enables caching results in ./node_modules/.cache/babel-loader/
                         // directory for faster rebuilds.
-                        cacheDirectory: true
-                    }
+                        cacheDirectory: true,
+                    },
+
                 }],
             },
         ]
     },
+    resolve: {
+        modules: ['node_modules', path.join(__dirname, './node_modules')],
+        extensions: ['.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.ts', '.tsx', '.js', '.jsx', '.json', '.less', '.css'],
+    },
     plugins: [
+        extractCss,
         extractSass,
         extractHtml
     ]
 };
-
-

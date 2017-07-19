@@ -1,7 +1,7 @@
-const autoprefixer = require('autoprefixer')
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
     plugins: [
-        autoprefixer({browsers: '> 5%'})
+        autoprefixer({browsers: '> 5%'}),
     ]
 }

@@ -9,6 +9,8 @@ const Login = ({
 }) => {
     const { getFieldDecorator } = form;
 
+    const {login, loginForm, loginFormForgot, loginFormButton} = styles
+
     const handleSubmit = (e) => {
         e.preventDefault();
         form.validateFields((err, values) => {
@@ -19,20 +21,20 @@ const Login = ({
     }
 
     return(
-        <Row className="login" type="flex" justify="center" align="middle">
-            <Form onSubmit={handleSubmit} className="login-form">
+        <Row className={login} type="flex" justify="center" align="middle">
+            <Form onSubmit={handleSubmit} className={loginForm}>
                 <FormItem>
                 {getFieldDecorator('userName', {
-                    rules: [{ required: true, message: 'Please input your username!' }],
+                    rules: [{ required: true, message: '请输入账号' }],
                 })(
-                    <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+                    <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="账号" />
                 )}
                 </FormItem>
                 <FormItem>
                 {getFieldDecorator('password', {
-                    rules: [{ required: true, message: 'Please input your Password!' }],
+                    rules: [{ required: true, message: '请输入密码' }],
                 })(
-                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
+                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="密码" />
                 )}
                 </FormItem>
                 <FormItem>
@@ -40,13 +42,13 @@ const Login = ({
                     valuePropName: 'checked',
                     initialValue: true,
                 })(
-                    <Checkbox>Remember me</Checkbox>
+                    <Checkbox>记住我</Checkbox>
                 )}
-                <a className="login-form-forgot" href="">Forgot password</a>
-                <Button type="primary" htmlType="submit" className="login-form-button">
-                    Log in
+                <a className={loginFormForgot} href="">忘记密码</a>
+                <Button type="primary" htmlType="submit" className={loginFormButton}>
+                    登 录
                 </Button>
-                Or <a href="">register now!</a>
+                还没注册？请先 <a href="">注册</a>
                 </FormItem>
             </Form>
         </Row>

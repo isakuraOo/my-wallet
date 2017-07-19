@@ -8,7 +8,7 @@
     "react-dom": "^15.6.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --progress --hot",
+    "start": "export NODE_ENV=development && webpack-dev-server --progress --hot",
     "build": "webpack"
   },
   "devDependencies": {
