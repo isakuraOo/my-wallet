@@ -3,14 +3,16 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const isDev = process.env.NODE_ENV === "dev"
+
 const extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV === "development"
+    filename: "[name]___[contenthash].css",
+    disable: isDev
 });
 
 const extractCss = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    // disable: process.env.NODE_ENV === "development"
+    filename: "[name]___[contenthash].css",
+    disable: isDev,
 })
 
 const extractHtml = new HtmlWebpackPlugin({
@@ -24,12 +26,12 @@ module.exports = {
         app: './entries/app.js'
     },
     output: {
-        publicPath: '/',
+        publicPath: './',
         path: __dirname + "/dist",
-        filename: "[name].bundle.js",
+        filename: "[name].[hash].bundle.js",
     },
     devServer: {
-        // publicPath: '/', // New
+        publicPath: '/',
         contentBase: path.join(__dirname, "./src"),
         compress: true,
         port: 3001,
@@ -50,7 +52,7 @@ module.exports = {
                         options: {
                             importLoaders: 1,
                             sourceMap: true,
-                            // localIdentName: '[local]___[hash:base64:5]',
+                            minimize: !isDev
                         }
                     }],
                     fallback: 'style-loader',
@@ -66,8 +68,8 @@ module.exports = {
                                 sourceMap: true,
                                 modules: true,
                                 localIdentName: '[local]___[hash:base64:5]',
-                                camelCase: true
-                                // localIdentName: '[local]___[hash:base64:5]',
+                                camelCase: true,
+                                minimize: !isDev
                             }
                         },
                         "sass-loader", // compiles Sass to CSS 
