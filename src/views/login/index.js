@@ -3,7 +3,6 @@ import {
     Input,
     Button,
     Row,
-    Col,
     Form,
     Icon,
     Checkbox
@@ -22,6 +21,10 @@ const Login = ({ form }) => {
         form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+
+                if(values.userName == 'zhou' && values.password == '0'){
+                    console.log('success');
+                }
             }
         });
     }

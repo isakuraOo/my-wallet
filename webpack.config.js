@@ -45,59 +45,59 @@ module.exports = {
     },
     module: {
         rules: [{
-                test: /\.css$/,
-                use: extractCss.extract({
-                    use: [{
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1,
-                            sourceMap: true,
-                            minimize: !isDev
-                        }
-                    }],
-                    fallback: 'style-loader',
-                }),
-            }, {
-                test: /\.scss$/,
-                exclude: /node_modules/,
-                use: extractSass.extract({
-                    use: [{
-                            loader: "css-loader", // translates CSS into CommonJS 
-                            options: {
-                                importLoaders: 2,
-                                sourceMap: true,
-                                modules: true,
-                                localIdentName: '[local]___[hash:base64:5]',
-                                camelCase: true,
-                                minimize: !isDev
-                            }
-                        },
-                        "sass-loader", // compiles Sass to CSS 
-                    ],
-                    // use style-loader in development 
-                    fallback: "style-loader"
-                }),
-            },
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
+            test: /\.css$/,
+            use: extractCss.extract({
                 use: [{
-                    loader: 'babel-loader',
+                    loader: 'css-loader',
                     options: {
-                        plugins: [
-                            ['import', {
-                                libraryName: 'antd',
-                                style: 'css',
-                            }],
-                        ],
-                        // This is a feature of `babel-loader` for webpack (not Babel itself).
-                        // It enables caching results in ./node_modules/.cache/babel-loader/
-                        // directory for faster rebuilds.
-                        cacheDirectory: true,
-                    },
-
+                        importLoaders: 1,
+                        sourceMap: true,
+                        minimize: !isDev
+                    }
                 }],
-            },
+                fallback: 'style-loader',
+            }),
+        }, {
+            test: /\.scss$/,
+            exclude: /node_modules/,
+            use: extractSass.extract({
+                use: [{
+                    loader: "css-loader", // translates CSS into CommonJS 
+                    options: {
+                        importLoaders: 1,
+                        sourceMap: true,
+                        modules: true,
+                        localIdentName: '[local]___[hash:base64:5]',
+                        camelCase: true,
+                        minimize: !isDev
+                    }
+                },
+                "sass-loader", // compiles Sass to CSS 
+                ],
+                // use style-loader in development 
+                fallback: "style-loader"
+            }),
+        },
+        {
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: [{
+                loader: 'babel-loader',
+                options: {
+                    plugins: [
+                        ['import', {
+                            libraryName: 'antd',
+                            style: 'css',
+                        }],
+                    ],
+                    // This is a feature of `babel-loader` for webpack (not Babel itself).
+                    // It enables caching results in ./node_modules/.cache/babel-loader/
+                    // directory for faster rebuilds.
+                    cacheDirectory: true,
+                },
+
+            }],
+        },
         ]
     },
     resolve: {
