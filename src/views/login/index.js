@@ -22,7 +22,7 @@ const Login = ({ form }) => {
             if (!err) {
                 console.log('Received values of form: ', values);
 
-                if(values.userName == 'zhou' && values.password == '0'){
+                if (values.userName == 'zhou' && values.password == '0') {
                     console.log('success');
                 }
             }

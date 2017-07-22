@@ -40,7 +40,7 @@ module.exports = {
         "no-use-before-define": 2,
         "no-duplicate-case": 2,
         "no-extra-parens": [2, "functions"],
-        "no-multiple-empty-lines": [1, {"max": 2}],
+        "no-multiple-empty-lines": [1, { "max": 2 }],
         "no-self-compare": 2,
         "accessor-pairs": 2,
         "comma-spacing": [2, {

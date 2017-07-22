@@ -72,7 +72,7 @@ module.exports = {
                         minimize: !isDev
                     }
                 },
-                "sass-loader", // compiles Sass to CSS 
+                    "sass-loader", // compiles Sass to CSS 
                 ],
                 // use style-loader in development 
                 fallback: "style-loader"
