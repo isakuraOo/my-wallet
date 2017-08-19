@@ -1,57 +1,45 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { loginAction } from '../../actions/user'
-
+import {Link} from 'react-router-dom'
 import {
     Input,
     Button,
     Row,
     Form,
     Icon,
-    Checkbox
 } from 'antd'
-
 import {
-    login,
-    loginForm,
-    loginFormForgot,
+    register, 
+    registerForm, 
     loginFormButton,
     submitBox
 } from './index.scss'
 
 const FormItem = Form.Item;
 
-const Login = (props) => {
-    
-    const {form} = props
+const Register = ({ form }) => {
     
     const { getFieldDecorator } = form;
 
     const handleSubmit = (e) => {
-
         e.preventDefault();
-
         form.validateFields((err, values) => {
-            
             if (!err) {
                 console.log('Received values of form: ', values);
 
-                props.actions.loginAction(values)
+                if (values.userName == 'zhou' && values.password == '0') {
+                    console.log('success');
+                }
             }
         });
-
     }
 
     return (
-        <Row className={login} type="flex" justify="center" align="middle">
-            <Form onSubmit={handleSubmit} className={loginForm}>
-                <h2>用户登录</h2>
+        <Row className={register} type="flex" justify="center" align="middle">
+            <Form onSubmit={handleSubmit} className={registerForm}>
+                <h2>用户注册</h2>
                 <FormItem>
                     {
                         getFieldDecorator('userName', {
-                            initialValue: 'MG',
                             rules: [
                                 {
                                     required: true,
@@ -66,8 +54,7 @@ const Login = (props) => {
                 </FormItem>
                 <FormItem>
                     {
-                        getFieldDecorator('password', {
-                            initialValue: 0,
+                        getFieldDecorator('password1', {
                             rules: [
                                 {
                                     required: true,
@@ -80,32 +67,14 @@ const Login = (props) => {
                             placeholder="密码" />)
                     }
                 </FormItem>
-                <FormItem className={submitBox}>
-                    {
-                        getFieldDecorator('remember', {
-                            valuePropName: 'checked',
-                            initialValue: false
-                        })(<Checkbox>记住我</Checkbox>)
-                    }
-                    <a className={loginFormForgot} href="">忘记密码</a>
-                    <Button type="primary" htmlType="submit" className={loginFormButton}>登 录</Button>
-                    还没注册？请先
-                    <Link to="./register">注册</Link>
-                </FormItem>
+                <div className={submitBox}>
+                    <Button type="primary" htmlType="submit" className={loginFormButton}>注 册</Button>
+                    已经注册？请
+                    <Link to="/login">登录</Link>
+                </div>
             </Form>
         </Row>
     )
 }
 
-
-const mapStateToProps = ({user}) => ({
-    user,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators({
-        loginAction
-    }, dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(Login))
+export default Form.create()(Register)

@@ -1,15 +1,41 @@
 import React from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-} from 'react-router-dom';
+import { Route } from 'react-router'
+import createBrowserHistory from 'history/createBrowserHistory'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { Provider } from 'react-redux'
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+import reducers from '../reducers'
+import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly'
+import promiseMiddleware from '../utils/middlewares/promiseMiddleware'
 
-import Login from '../views/login';
+const history = createBrowserHistory()
 
-const AppRouter = () => (
-    <Router>
-        <Route path="/" component={Login} />
-    </Router>
+const middleware = routerMiddleware(history)
+
+const store = createStore(
+    combineReducers({
+        ...reducers,
+        router: routerReducer
+    }),
+    composeWithDevTools(
+        //这里放中间件
+        applyMiddleware(middleware, promiseMiddleware)
+    )
 )
 
-export default AppRouter
+import Login from '../views/login';
+import Register from '../views/register'
+
+
+const App = () => (
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <div>
+                <Route exact path='/register' component={Register}></Route>
+                <Route path='/login' component={Login} ></Route>
+            </div>
+        </ConnectedRouter>
+    </Provider>
+)
+
+export default App

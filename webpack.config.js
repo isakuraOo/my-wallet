@@ -29,18 +29,20 @@ module.exports = {
         publicPath: './',
         path: __dirname + "/dist",
         filename: "[name].[hash].bundle.js",
+        // chunkFilename: '[name]-[id].[chunkhash:8].bundle.js', // 代码分割
     },
     devServer: {
         publicPath: '/',
         contentBase: path.join(__dirname, "./src"),
-        compress: true,
+        compress: false,
         port: 3001,
         hot: true,
-        noInfo: true,
-        // overlay: {
-        //     warnings: true,
-        //     errors: true
-        // },
+        historyApiFallback: true,
+        // noInfo: true,
+        overlay: {
+            warnings: true,
+            errors: true
+        },
         // progress: true,
     },
     module: {
@@ -72,7 +74,7 @@ module.exports = {
                         minimize: !isDev
                     }
                 },
-                    "sass-loader", // compiles Sass to CSS 
+                "sass-loader", // compiles Sass to CSS 
                 ],
                 // use style-loader in development 
                 fallback: "style-loader"
