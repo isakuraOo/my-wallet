@@ -36,6 +36,9 @@ module.exports = {
         contentBase: path.join(__dirname, "./src"),
         compress: false,
         port: 3001,
+        proxy: {
+            "/api": "http://localhost:3005"
+        },
         hot: true,
         historyApiFallback: true,
         noInfo: true,

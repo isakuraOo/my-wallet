@@ -50,7 +50,7 @@ const Login = (props) => {
                 <h2>用户登录</h2>
                 <FormItem>
                     {
-                        getFieldDecorator('userName', {
+                        getFieldDecorator('account', {
                             initialValue: 'MG',
                             rules: [
                                 {

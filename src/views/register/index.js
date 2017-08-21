@@ -13,10 +13,12 @@ import {
     loginFormButton,
     submitBox
 } from './index.scss'
+import { connect } from 'react-redux';
+import {registerAction} from '../../actions/user'
 
 const FormItem = Form.Item;
 
-const Register = ({ form }) => {
+const Register = ({ form, dispatch }) => {
     
     const { getFieldDecorator } = form;
 
@@ -26,9 +28,7 @@ const Register = ({ form }) => {
             if (!err) {
                 console.log('Received values of form: ', values);
 
-                if (values.userName == 'zhou' && values.password == '0') {
-                    console.log('success');
-                }
+                dispatch(registerAction(values))
             }
         });
     }
@@ -39,7 +39,7 @@ const Register = ({ form }) => {
                 <h2>用户注册</h2>
                 <FormItem>
                     {
-                        getFieldDecorator('userName', {
+                        getFieldDecorator('account', {
                             rules: [
                                 {
                                     required: true,
@@ -54,7 +54,7 @@ const Register = ({ form }) => {
                 </FormItem>
                 <FormItem>
                     {
-                        getFieldDecorator('password1', {
+                        getFieldDecorator('password', {
                             rules: [
                                 {
                                     required: true,
@@ -77,4 +77,8 @@ const Register = ({ form }) => {
     )
 }
 
-export default Form.create()(Register)
+const initProps = ({user}) => ({
+    register: user.register
+})
+
+export default connect(initProps)(Form.create()(Register))

@@ -1,5 +1,5 @@
 const initState = {
-    userInfo: false
+    userInfo: null
 }
 
 export default initState
