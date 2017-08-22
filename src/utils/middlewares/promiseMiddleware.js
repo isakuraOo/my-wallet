@@ -1,13 +1,10 @@
-import fetchPost from '../../api/fetch'
-
 const progress = ['PENDING', 'SUCCESS', 'ERROR']
-
 
 const promiseMiddleware = ({ getState, dispatch }) => next => async (action) => {
 
-    const { payload, type } = action
+    const { api, type } = action
 
-    if (!payload) {
+    if (!api) {
         next(action)
         return
     }
@@ -17,7 +14,7 @@ const promiseMiddleware = ({ getState, dispatch }) => next => async (action) => 
         result: null,
     })
 
-    const res = await payload
+    const res = await api
 
     const {code} = res
 

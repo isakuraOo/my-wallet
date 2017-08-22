@@ -5,10 +5,15 @@ import {
 
 export const loginAction = (parmas) => ({
     type: 'LOGIN',
-    payload: login(parmas)
+    api: login(parmas)
 })
 
 export const registerAction = (parmas) => ({
     type: 'REGISTER',
-    payload: register(parmas)
+    api: register(parmas)
+})
+
+
+export const clearUser = () => ({
+    type: 'CLEAR_USER'
 })

@@ -1,23 +1,62 @@
-import reducers from './reducer'
-import initState from './state'
+import initState from './initState'
 
-
-const userReducer = (state = initState, {type, res, parmas}) => {
-
-    const [actionType, status] = type.split('_')
-    
-    if(!reducers[actionType]){
-        return state
-    }
-    else if(!reducers[actionType][status] && parmas){
+const user_reducers = {
+    LOGIN_PENDING: (state) => {
         return {
             ...state,
-            parmas
+            userInfo: null,
+            errorMsg: null
         }
-    }else{
-        return reducers[actionType][status](state, {res, parmas})
+    },
+    LOGIN_SUCCESS: (state, { res }) => {
+        return {
+            ...state,
+            userInfo: res.data
+        }
+    },
+    LOGIN_ERROR: (state, { res }) => {
+        return {
+            ...state,
+            errorMsg: res.message
+        }
+    },
+    REGISTER_PENDING: (state) => {
+        return {
+            ...state,
+            register: null,
+            errorMsg: null,
+        }
+    },
+    REGISTER_SUCCESS: (state, { res }) => {
+        return {
+            ...state,
+            register: res.data
+        }
+    },
+    REGISTER_ERROR: (state, { res }) => {
+        return {
+            ...state,
+            errorMsg: res.message
+        }
+    },
+    CLEAR_USER: (state) => {
+        return {
+            ...state,
+            userInfo: null
+        }
     }
-   
+}
+
+const userReducer = (state = initState, action) => {
+
+    const { type } = action
+
+    if (!user_reducers[type]) {
+        return state
+    }
+
+    return user_reducers[type](state, action)
+
 }
 
 export default userReducer

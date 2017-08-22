@@ -1,16 +1,14 @@
 import React from 'react';
-import { Route } from 'react-router'
+import { Route, Redirect } from 'react-router'
 import createBrowserHistory from 'history/createBrowserHistory'
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 import reducers from '../reducers'
-import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly'
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 import promiseMiddleware from '../utils/middlewares/promiseMiddleware'
 
 const history = createBrowserHistory()
-
-const middleware = routerMiddleware(history)
 
 const store = createStore(
     combineReducers({
@@ -19,7 +17,7 @@ const store = createStore(
     }),
     composeWithDevTools(
         //这里放中间件
-        applyMiddleware(middleware, promiseMiddleware)
+        applyMiddleware(routerMiddleware(history), promiseMiddleware)
     )
 )
 
@@ -27,14 +25,14 @@ import Login from '../views/login';
 import Register from '../views/register'
 import Admin from '../views/admin'
 
-
 const App = () => (
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <div>
-                <Route exact path='/register' component={Register}></Route>
-                <Route path='/login' component={Login} ></Route>
+                <Route exact path='/login' component={Login} ></Route>
+                <Route path='/register' component={Register}></Route>
                 <Route path='/admin' component={Admin} ></Route>
+                <Redirect from="/" to="/login" />
             </div>
         </ConnectedRouter>
     </Provider>
