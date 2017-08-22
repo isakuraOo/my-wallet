@@ -24,8 +24,10 @@ import {
 const FormItem = Form.Item;
 
 const Login = (props) => {
+
+    console.log('props', props);
     
-    const {form} = props
+    const {form, dispatch} = props
     
     const { getFieldDecorator } = form;
 
@@ -36,7 +38,7 @@ const Login = (props) => {
         form.validateFields((err, values) => {
             
             if (!err) {
-                props.actions.loginAction(values)
+                dispatch(loginAction(values))
             }
         });
 
