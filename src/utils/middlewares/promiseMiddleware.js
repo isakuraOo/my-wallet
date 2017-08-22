@@ -19,20 +19,12 @@ const promiseMiddleware = ({ getState, dispatch }) => next => async (action) => 
 
     const res = await payload
 
-    const {code, data, message} = res
+    const {code} = res
 
-    if(code == '200'){
-        next({
-            type: `${type}_${progress[1]}`,
-            result: data
-        })
-    }
-    else{
-        next({
-            type: `${type}_${progress[2]}`,
-            result: message,
-        })
-    }
+    next({
+        type: `${type}_${code == 200 ? progress[1] : progress[2]}`,
+        res
+    })
 
     return action
 }

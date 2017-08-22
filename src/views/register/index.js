@@ -77,8 +77,8 @@ const Register = ({ form, dispatch }) => {
     )
 }
 
-const initProps = ({user}) => ({
+const mapStateToProps = ({user}) => ({
     register: user.register
 })
 
-export default connect(initProps)(Form.create()(Register))
+export default connect(mapStateToProps)(Form.create()(Register))

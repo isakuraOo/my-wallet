@@ -1,0 +1,16 @@
+.admin-content{
+    height: 100vh;
+
+    .user-avatar{
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        font-size: 28px;
+        color: #fff;
+    }
+
+    :global(.trigger){
+        margin-left: 20px;
+        font-size: 14px;
+    }
+}

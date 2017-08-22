@@ -9,6 +9,6 @@ export const loginAction = (parmas) => ({
 })
 
 export const registerAction = (parmas) => ({
-    type: 'LOGIN',
+    type: 'REGISTER',
     payload: register(parmas)
 })

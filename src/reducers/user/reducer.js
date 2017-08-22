@@ -8,16 +8,16 @@ export default {
                 errorMsg: null
             }
         },
-        SUCCESS: (state, {result}) => {
+        SUCCESS: (state, {res}) => {
             return {
                 ...state,
-                userInfo: result
+                userInfo: res.data
             }
         },
-        ERROR: (state, {result}) => {
+        ERROR: (state, {res}) => {
             return {
                 ...state,
-                errorMsg: result
+                errorMsg: res.message
             }
         },
     },
@@ -29,16 +29,16 @@ export default {
                 errorMsg: null,
             }
         },
-        SUCCESS: (state, {result}) => {
+        SUCCESS: (state, {res}) => {
             return {
                 ...state,
-                register: result
+                register: res.data
             }
         },
-        ERROR: (state, {result}) => {
+        ERROR: (state, {res}) => {
             return {
                 ...state,
-                errorMsg: result
+                errorMsg: res.message
             }
         }
     }

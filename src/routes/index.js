@@ -25,6 +25,7 @@ const store = createStore(
 
 import Login from '../views/login';
 import Register from '../views/register'
+import Admin from '../views/admin'
 
 
 const App = () => (
@@ -33,6 +34,7 @@ const App = () => (
             <div>
                 <Route exact path='/register' component={Register}></Route>
                 <Route path='/login' component={Login} ></Route>
+                <Route path='/admin' component={Admin} ></Route>
             </div>
         </ConnectedRouter>
     </Provider>

@@ -36,8 +36,6 @@ const Login = (props) => {
         form.validateFields((err, values) => {
             
             if (!err) {
-                console.log('Received values of form: ', values);
-
                 props.actions.loginAction(values)
             }
         });
@@ -102,10 +100,4 @@ const mapStateToProps = ({user}) => ({
     user,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators({
-        loginAction
-    }, dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(Login))
+export default connect(mapStateToProps)(Form.create()(Login))

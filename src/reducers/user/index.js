@@ -1,8 +1,8 @@
 import reducers from './reducer'
-
 import initState from './state'
 
-const userReducer = (state = initState, {type, result, parmas}) => {
+
+const userReducer = (state = initState, {type, res, parmas}) => {
 
     const [actionType, status] = type.split('_')
     
@@ -15,7 +15,7 @@ const userReducer = (state = initState, {type, result, parmas}) => {
             parmas
         }
     }else{
-        return reducers[actionType][status](state, {result, parmas})
+        return reducers[actionType][status](state, {res, parmas})
     }
    
 }
