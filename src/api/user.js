@@ -7,7 +7,7 @@ const hashPassword = ({account, password}) => {
 }
 
 export const login = async ({account, password}) => {
-    // const hashPassword = 
+
     const parmas = {
         account,
         password: hashPassword(password)

@@ -1,27 +1,51 @@
 import axios from 'axios'
 import cookie from 'js-cookie'
+import qs  from 'qs'
 
-const _axios = axios.create({
-    method: 'post',
-    timeout: 8000,
-    headers: {
-        'Accept': 'application/json',  
-        "Content-type": "application/json; charset=UTF-8",
-        'x-auth-token': cookie.get('x-auth-token') || '123'
-    },
-});
+const token = 'x-auth-token'
+
+/**
+ * 格式化提交数据
+ * 
+ * @param {any} [parmas={}] 
+ * @returns 
+ */
+const formatParmas = (parmas = {}) => {
+
+    if (typeof parmas !== 'object') {
+        return parmas
+    }
+
+    const arry = []
+
+    for (let key in parmas) {
+        arry.push(`${key}=${parmas[key]}`)
+    }
+
+    return arry.join('&')
+}
+
+
 
 axios.defaults.headers.Accept = 'application/json'
+axios.defaults.headers[token] = cookie.get(token) || ''; 
 
+const axiosPost = async (url = '', parmas) => {
 
-const axiosPost = async (url = '', data) => {
+    const response = await axios.post(url, qs.stringify(parmas))
 
-        const response = await axios.post(url, data)
+    console.log('response', response);
+    const {
+        headers,
+        data
+    } = response
 
-        console.log('response', response);
+    if(headers[token]){
+        cookie.set(token, headers[token])
+    }
 
-        return response
-   
+    return data
+
 }
 
 export default axiosPost
