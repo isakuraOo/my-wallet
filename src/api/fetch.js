@@ -1,28 +1,14 @@
 import 'babel-polyfill'
 
-let headers = new Headers()
-
-headers = {
-    'Accept': 'application/json',
-    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-}
-
-const opts = {
-    method: "POST",
-    headers,
-    mode: 'cors',
-    cache: 'default'
-}
-
 /**
  * 格式化提交数据
  * 
  * @param {any} [parmas={}] 
  * @returns 
  */
-const formatParmas = (parmas ={}) => {
-    
-    if(typeof parmas !== 'object'){
+const formatParmas = (parmas = {}) => {
+
+    if (typeof parmas !== 'object') {
         return parmas
     }
 
@@ -38,19 +24,28 @@ const formatParmas = (parmas ={}) => {
 const fetchPost = async (url = '', parmas) => {
 
     const init = {
-        ...opts,
         method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        mode: 'cors',
+        cache: 'default',
         body: formatParmas(parmas)
     }
 
     try {
         const response = await fetch(url, init);
-        
+
+        const test = await response.headers.get('x-auth-token')
+
         return await response.json()
     }
-    catch(e) {
+    catch (e) {
         console.warn("Err", e);
     }
 }
 
-export default fetchPost
+export {
+    fetchPost
+}

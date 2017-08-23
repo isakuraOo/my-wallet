@@ -1,4 +1,5 @@
 import initState from './initState'
+import cookie from 'js-cookie'
 
 const user_reducers = {
     LOGIN_PENDING: (state) => {
@@ -9,6 +10,7 @@ const user_reducers = {
         }
     },
     LOGIN_SUCCESS: (state, { res }) => {
+        console.log('res');
         return {
             ...state,
             userInfo: res.data
