@@ -1,6 +1,7 @@
 import {
     login,
-    register
+    register,
+    loginByToken
 } from '../api/user'
 
 export const loginAction = (parmas) => ({
@@ -13,6 +14,10 @@ export const registerAction = (parmas) => ({
     api: register(parmas)
 })
 
+export const loginByTokenAction = () => ({
+    type: 'LOGIN',
+    api: loginByToken()
+})
 
 export const clearUser = () => ({
     type: 'CLEAR_USER'

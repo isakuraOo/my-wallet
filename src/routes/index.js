@@ -32,7 +32,6 @@ const App = () => (
                 <Route exact path='/login' component={Login} ></Route>
                 <Route path='/register' component={Register}></Route>
                 <Route path='/admin' component={Admin} ></Route>
-                <Redirect from="/" to="/login" />
             </div>
         </ConnectedRouter>
     </Provider>

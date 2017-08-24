@@ -1,24 +1,25 @@
 import initState from './initState'
-import cookie from 'js-cookie'
 
 const user_reducers = {
     LOGIN_PENDING: (state) => {
         return {
             ...state,
             userInfo: null,
+            login: false,
             errorMsg: null
         }
     },
     LOGIN_SUCCESS: (state, { res }) => {
-        console.log('res');
         return {
             ...state,
+            login: true,
             userInfo: res.data
         }
     },
     LOGIN_ERROR: (state, { res }) => {
         return {
             ...state,
+            login: false,
             errorMsg: res.message
         }
     },
